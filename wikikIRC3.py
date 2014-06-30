@@ -76,13 +76,22 @@ class MyBot(SingleServerIRCBot):
         serv.join("#fr.wikipedia")
 
     def on_pubmsg(self, serv, ev):
+        '''Si message reçu sur l'IRC, met à jour self.out.'''
         self.get_address(ev)
         if self.address:
-            page = self.get_page() # unicode
-            data = lxml.etree.HTML(page)
-            # tag = '<td class="diff-context"><div>'
-            liste = data.xpath('//td[@class="diff-context"]/div/text()')
+            # Liste de str avec les modifs de la page
+            liste = self.modifs_in_page()
             self.filtre(liste)
+
+    def modifs_in_page(self):
+        '''Retourne une liste de modifications dans la page de
+        comparaison de version de wikipedia.
+        '''
+        page = self.get_page() # unicode
+        data = lxml.etree.HTML(page)
+        # tag = '<td class="diff-context"><div>'
+        liste = data.xpath('//td[@class="diff-context"]/div/text()')
+        return liste
 
     def filtre(self, liste):
         '''Filtre la liste de lignes récupérées pour avoir un beau texte.'''
@@ -107,7 +116,7 @@ class MyBot(SingleServerIRCBot):
         if len(good) > 0:
             if len(good[0]) > 40:
                 self.out = good[0]
-                if not self.bavard:
+                if self.bavard:
                     if self.out:
                         print(self.out, "\n\n")
 
@@ -154,5 +163,5 @@ if __name__ == "__main__":
     nickname = "Labomedia-test"
     realname = "Syntaxis analysis in Python with bot"
     print("Test", "\n", server_list, "\n", nickname, "\n", realname)
-    mybot = MyBot(server_list, nickname, realname, bavard=False)
+    mybot = MyBot(server_list, nickname, realname, bavard=True)
     mybot.start()

@@ -6,3 +6,7 @@ __pycache__
 # Geany
 *.geany
 
+*.html
+*.xml
+exemple.py
+*_test.py
