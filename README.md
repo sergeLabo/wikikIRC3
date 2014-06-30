@@ -9,7 +9,7 @@ Retourne de jolis textes avec les modifications faites sur Wikipedia FR.
 
 #### Requirements
 
-Linux debian base
+Tested on Linux Mint 17 and Ubuntu 14.04
 
 #### Test
 
