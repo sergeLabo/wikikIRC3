@@ -8,5 +8,4 @@ __pycache__
 
 *.html
 *.xml
-exemple.py
 *_test.py
