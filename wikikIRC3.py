@@ -68,7 +68,6 @@ class MyBot(SingleServerIRCBot):
         self.wiki_out = ''
         self.bavard = bavard
         self.address = ""
-        self.out = ""
 
     def on_welcome(self, serv, ev):
         '''Connection à l'IRC.'''
@@ -76,12 +75,13 @@ class MyBot(SingleServerIRCBot):
         serv.join("#fr.wikipedia")
 
     def on_pubmsg(self, serv, ev):
-        '''Si message reçu sur l'IRC, met à jour self.out.'''
+        '''Si message reçu sur l'IRC, met à jour self.wiki_out.'''
         self.get_address(ev)
         if self.address:
             # Liste de str avec les modifs de la page
             liste = self.modifs_in_page()
             self.filtre(liste)
+        return self.wiki_out
 
     def modifs_in_page(self):
         '''Retourne une liste de modifications dans la page de
@@ -115,10 +115,10 @@ class MyBot(SingleServerIRCBot):
                         good.append(line)
         if len(good) > 0:
             if len(good[0]) > 40:
-                self.out = good[0]
+                self.wiki_out = good[0]
                 if self.bavard:
-                    if self.out:
-                        print(self.out, "\n\n")
+                    if self.wiki_out:
+                        print(self.wiki_out, "\n\n")
 
     def get_page(self):
         '''Retourne le html de la page.'''
