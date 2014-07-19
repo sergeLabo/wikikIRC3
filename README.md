@@ -1,4 +1,4 @@
-wikikIRC
+wikikIRC3
 ========
 
 Retourne de jolis textes avec les modifications faites sur Wikipedia FR.
@@ -9,7 +9,9 @@ Retourne de jolis textes avec les modifications faites sur Wikipedia FR.
 
 #### Requirements
 
-Tested on Linux Mint 17 and Ubuntu 14.04
+* python 3
+
+* Tested on Linux Mint 17 and Ubuntu 14.04
 
 #### Test
 
@@ -26,4 +28,3 @@ See the bundled LICENSE file for details.
 
 
 #### Bugs:
-
